@@ -8,7 +8,7 @@ score = ""
 menu_choice = 9  # any integer other than menu selections / 0
 
 def menu():
-    return "\nKey in 1 to log new paper completion\nKey in 2 to view table of past completion\nKey in 0 to exit "
+    return "==" * 30 + "\nKey in 1 to log new paper completion\nKey in 2 to view table of past completion\nKey in 0 to exit "
 
 def his_retriever():
     global counter, title, title_record, score_record, score
@@ -21,23 +21,30 @@ def his_retriever():
 
 
 def table_creator(pTitle_rec, pScore_rec, pCounter_rec):
-    print("{:^4} | {:<25} | {:^4}".format("No.", "Title", "Score"))
-    print("-"*43)
+    print("{:^5} | {:<25} | {:^6}".format("No.", "Title", "Score"))
+    print("-"*44)
+    if len(counter_record) == 0:
+        print("{:^44}".format("No Content"))
     for i in range(0, len(counter_record)):
-        print("{:^4} | {:<25} | {:^4}".format(pCounter_rec[i], pTitle_rec[i], pScore_rec[i]))
+        print("{:^5} | {:<25} | {:^6}".format(pCounter_rec[i], pTitle_rec[i], pScore_rec[i]))
 
 # ---------main------------------
 while menu_choice != 0:
     try:
         menu_choice = int(input(f"{menu()}\nEnter choice: "))
+        print("==" * 30)
     except ValueError:
         print("Enter an integer.")
 
-    while menu_choice == 1 or menu_choice == 2:
+    while menu_choice == 1 or menu_choice == 2 or menu_choice == 0:
         if menu_choice == 1:
             his_retriever()
-        else:
+        elif menu_choice == 2:
             table_creator(title_record, score_record, counter_record)
+        else:
+            break
         menu_choice = 9
         break
+    else:
+        print("** Select a number that is within range **")
 
